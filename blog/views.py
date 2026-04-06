@@ -7,8 +7,8 @@ def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_list.html', {"posts":posts})
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
     return render(request, 'blog/post_detail.html', {"post": post})
 
 def post_create(request):
@@ -22,20 +22,20 @@ def post_create(request):
 
     return render(request, 'blog/post_create.html', {"form": form})
 
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def post_edit(request, slug):
+    post = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('post_detail', slug=post.slug)
     else:
         form = PostForm(instance=post)
 
     return render(request, 'blog/post_edit.html', {'form': form})
 
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def post_delete(request, slug):
+    post = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
         post.delete()
         return redirect('post_list')
