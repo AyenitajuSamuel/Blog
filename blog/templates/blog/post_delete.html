@@ -4,6 +4,6 @@
         {% csrf_token %}
         <p>Are you sure you want to delete?</p>
         <button type="submit">Yes, delete</button>
-        <a href="{% url 'post_list' %}">Cancel</a>
+        <a href="{% url 'post_detail' pk=post.pk %}">Cancel</a>
     </form>
 {% endblock %}
