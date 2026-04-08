@@ -29,6 +29,8 @@ def post_create(request):
 @login_required
 def post_edit(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    if post.author != request.user:
+        return redirect('post_list')
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
@@ -42,6 +44,8 @@ def post_edit(request, slug):
 @login_required
 def post_delete(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    if post.author != request.user:
+        return redirect('post_list')
     if request.method == "POST":
         post.delete()
         return redirect('post_list')
