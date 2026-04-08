@@ -4,6 +4,7 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <p>{{ post.date_created }}</p>
+    <p>By {{post.author.username }}</p>
     <p><a href="{% url 'post_edit' slug=post.slug %}">Edit Post</a></p>
     <p><a href="{% url 'post_delete' slug=post.slug %}">Delete</a></p>
 {% endblock %}
