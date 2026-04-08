@@ -2,10 +2,14 @@ from .models import Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    all_posts = Post.objects.all()
+    paginator = Paginator(all_posts, 3)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
     return render(request, 'blog/post_list.html', {"posts":posts})
 
 def post_detail(request, slug):
@@ -51,3 +55,5 @@ def post_delete(request, slug):
         return redirect('post_list')
     
     return render(request, 'blog/post_delete.html', {'post': post})
+
+
