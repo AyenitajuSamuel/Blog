@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import post_list, post_detail, post_create, post_edit, post_delete
+from .views import post_list, post_detail, post_create, post_edit, post_delete, register 
 
 urlpatterns = [
     path("", post_list, name='post_list'),
@@ -7,4 +7,5 @@ urlpatterns = [
     path("post/<slug:slug>/", post_detail, name='post_detail'),
     path("post/<slug:slug>/edit/", post_edit, name="post_edit"),
     path("post/<slug:slug>/delete/", post_delete, name="post_delete"),
+    path("register/", register, name="register")
 ]

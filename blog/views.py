@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
 
 
 def post_list(request):
@@ -57,3 +58,14 @@ def post_delete(request, slug):
     return render(request, 'blog/post_delete.html', {'post': post})
 
 
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'blog/register.html', {'form': form}) 
